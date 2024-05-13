@@ -1,0 +1,40 @@
+"use client";
+
+import { Dialog, DialogContent, DialogTrigger } from "@radix-ui/react-dialog";
+import { useRouter } from "next/navigation";
+import { LoginForm } from "./login-form";
+
+interface LoginButtonProps {
+  children: React.ReactNode;
+  mode?: "modal" | "redirect";
+  asChild?: boolean;
+}
+
+export const LoginButton = ({
+  children,
+  mode = "redirect",
+  asChild,
+}: LoginButtonProps) => {
+  const router = useRouter();
+  const onClick = () => {
+    router.push("/auth/login");
+  };
+
+  if (mode === "modal") {
+    return (
+      <Dialog>
+        <DialogTrigger asChild={asChild}>{children}</DialogTrigger>
+        <DialogContent className="p-0 w-auto bg-transparent border-none">
+          <LoginForm />
+        </DialogContent>
+      </Dialog>
+    );
+  }
+  return (
+    <span onClick={onClick} className="cursor-pointer">
+      {children}
+    </span>
+  );
+};
+
+//Its like a reusable function now we can turn any button functionable just by wrapping it around the button ui
