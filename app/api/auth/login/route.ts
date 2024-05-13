@@ -12,6 +12,7 @@ export const POST = async (req: NextRequest) => {
         password,
         redirectTo: DEFAULT_LOGIN_REDIRECT,
       });
+      return;
     } catch (error) {
       if (error instanceof AuthError) {
         switch (error.type) {
